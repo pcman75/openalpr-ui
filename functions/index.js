@@ -8,12 +8,19 @@ exports.helloWorld = functions.https.onRequest(async (request, response) => {
 
 exports.getplates = functions.https.onRequest(async (request, response) => {
     let client;
-    let data = {};
+    let table = {};
     try {
         client = await MongoClient.connect(config.mongodb_url);
         let db = client.db(config.dbName);
-        data = await db.collection(config.platesCol).find({}).toArray();
-        response.status(200).send(data);
+        let data = await db.collection(config.platesCol).find({}).toArray();
+
+        table.header = Object.keys(data[0]);
+        table.data = data.map(function (obj) {
+            return Object.keys(obj).map(function (key) {
+                return obj[key];
+            });
+        });
+        response.status(200).send(table);
     }
     catch (err) {
         console.error(err);

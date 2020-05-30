@@ -53,11 +53,10 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
   <!-- jexcel -->
-  <script src="https://bossanova.uk/jexcel/v3/jexcel.js"></script>
-  <link rel="stylesheet" href="https://bossanova.uk/jexcel/v3/jexcel.css" type="text/css" />
-  <script src="https://bossanova.uk/jtools/v2/japp.js"></script>
-  <link rel="stylesheet" href="https://bossanova.uk/jtools/v2/japp.css" type="text/css" />
-  <script src="https://bossanova.uk/jtools/v2/japp.js"></script>
+  <script src="https://bossanova.uk/jexcel/v4/jexcel.js"></script>
+  <script src="https://bossanova.uk/jsuites/v2/jsuites.js"></script>
+  <link rel="stylesheet" href="https://bossanova.uk/jsuites/v2/jsuites.css" type="text/css" />
+  <link rel="stylesheet" href="https://bossanova.uk/jexcel/v4/jexcel.css" type="text/css" />
 
   <!-- momentjs -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.js"></script>
@@ -81,7 +80,7 @@
             if (table.header[idx] === "_id") {
               return new moment(parseInt(val.substring(0, 8), 16) * 1000).format('MM/DD HH:MM');
             }
-            else if (table.header[idx] === "last_seen") {
+            else if (table.header[idx] === "epoch_start") {
               return new moment(val).format('MM/DD HH:MM');
             }
             else
@@ -98,13 +97,6 @@
       }
     })
   );
-/*
-    let headerIdx = table.header.reduce((hashmap, val, idx) => {
-        hashmap[val] = idx;
-        return hashmap;
-    }, new Map());
-    */
-
 </script>
 
 </html>
