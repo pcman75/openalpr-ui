@@ -73,7 +73,7 @@
 <script>
   $(
     $.ajax({
-      url: 'https://us-central1-computer-vision-277716.cloudfunctions.net/computer-vision-dev-api/getplates',
+      url: '/getplates',
       data: {},
       success: function (table) {
         let displaydata = table.data.map(row => {
