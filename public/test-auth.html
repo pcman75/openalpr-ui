@@ -9,55 +9,8 @@
   <script src="https://www.gstatic.com/firebasejs/7.14.6/firebase.js"></script>
   <script src="https://www.gstatic.com/firebasejs/7.14.6/firebase-functions.js"></script>
 
-  <script src="https://www.gstatic.com/firebasejs/7.14.5/firebase-auth.js"></script>
   <!-- Initialize Firebase -->
   <script src="/__/firebase/init.js"></script>
-  <script type="text/javascript">
-    signOut = () => {
-      firebase.auth().signOut()
-        .then(function () {
-          // Sign-out successful.
-        })
-        .catch(console.error);
-    }
-
-    initApp = function () {
-      firebase.auth().onAuthStateChanged(function (user) {
-        if (user) {
-          // User is signed in.
-          var displayName = user.displayName;
-          var email = user.email;
-          var emailVerified = user.emailVerified;
-          var photoURL = user.photoURL;
-          var uid = user.uid;
-          var phoneNumber = user.phoneNumber;
-          var providerData = user.providerData;
-          user.getIdToken().then(function (accessToken) {
-            document.getElementById('sign-in-status').textContent = 'Signed in';
-            document.getElementById('sign-in').textContent = 'Sign out';
-            document.getElementById('account-details').textContent = JSON.stringify({
-              displayName: displayName,
-              email: email,
-              emailVerified: emailVerified,
-              phoneNumber: phoneNumber,
-              photoURL: photoURL,
-              uid: uid,
-              accessToken: accessToken,
-              providerData: providerData
-            }, null, '  ');
-          });
-        } else {
-          window.location.replace("login.html");
-        }
-      }, function (error) {
-        console.log(error);
-      });
-    };
-
-    window.addEventListener('load', function () {
-      initApp();
-    });
-  </script>
 
   <!-- ajax -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
@@ -73,11 +26,6 @@
 </head>
 
 <body>
-  <h1>Hi</h1>
-  <div id="sign-in-status"></div>
-  <!-- <div id="sign-in"></div> -->
-  <a id="sign-in" href="#" onclick="signOut()">Edit</a>
-  <pre id="account-details"></pre>
   <div id="spreadsheet"></div>
 </body>
 <script>
@@ -87,14 +35,6 @@
   }
   // Initialize Cloud Functions through Firebase
   let functions = firebase.functions();
-
-  let helloWorld = firebase.functions().httpsCallable('helloWorld');
-  helloWorld({ text: "Hi" }).then(function (result) {
-    // Read result of the Cloud Function.
-    console.log(result.data.text);
-    // ...
-  });
-
 
   let getplates = firebase.functions().httpsCallable('getplates');
   $(
