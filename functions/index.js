@@ -20,7 +20,7 @@ exports.getplates = functions.https.onCall(async (input, context) => {
         // Throwing an HttpsError so that the client gets the error details.
         throw new functions.https.HttpsError('failed-precondition', 'The function must be called while authenticated.');
     }
-    else if(context.auth.uid !== 'jqshkSITDhRSXyxSvx8RpinZvgu2') {
+    else if (context.auth.uid !== 'jqshkSITDhRSXyxSvx8RpinZvgu2') {
         // Throwing an HttpsError so that the client gets the error details.
         throw new functions.https.HttpsError('permission-denied', `Unauthorized user: ${context.auth.token.email}`);
     }
@@ -29,14 +29,18 @@ exports.getplates = functions.https.onCall(async (input, context) => {
 
     let client = await MongoClient.connect(config.mongodb_url);
     let db = client.db(config.dbName);
-    let data = await db.collection(config.platesCol).find({}).sort({epoch_start: -1}).toArray();
+    console.log(input.find);
+    let data = await db.collection(config.platesCol).find(input && input.find ? input.find : {}).sort({ epoch_start: -1 }).toArray();
 
-    table.header = Object.keys(data[0]);
-    table.data = data.map(function (obj) {
-        return Object.keys(obj).map(function (key) {
-            return obj[key];
+    if (data[0]) {
+        table.header = Object.keys(data[0]);
+        table.data = data.map(function (obj) {
+            return Object.keys(obj).map(function (key) {
+                return obj[key];
+            });
         });
-    });
+    }
+
 
     client.close();
     return table;

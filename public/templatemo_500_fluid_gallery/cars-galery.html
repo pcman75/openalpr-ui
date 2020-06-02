@@ -834,13 +834,17 @@ http://www.templatemo.com/tm-500-fluid-gallery
             Everything is loaded including images.
         */
         $(window).load(function () {
-            getplates().then((result) => {
+            var start = new Date();
+            start.setHours(0,0,0,0); //begining of the day
+            start.setDate(start.getDate() - 1); //yesterday
+            let find = {epoch_start: {$gt: start.getTime()}}
+            getplates({find: find}).then((result) => {
                 let table = result.data;
                 displaydata = table.data.map(row => {
 
                     let rowData = row.map((val, idx) => {
                         if (table.header[idx] === "epoch_start") {
-                            return new moment(val).format('MM/DD HH:MM:SS');
+                            return new moment(val, 'x').format('MMM DD LTS');
                         }
                         else
                             return val;
@@ -857,9 +861,8 @@ http://www.templatemo.com/tm-500-fluid-gallery
                 });
                 return displaydata;
             }).then((data) => {
-                $("#cars-today").html(data).then(() => {
-                    adjustHeightOfPage(1); // Adjust page height
-                })
+                $("#cars-today").html(data);
+                adjustHeightOfPage(1); // Adjust page height
             });
 
 
