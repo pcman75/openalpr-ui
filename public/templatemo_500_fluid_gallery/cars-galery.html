@@ -129,12 +129,7 @@ http://www.templatemo.com/tm-500-fluid-gallery
         </ul> <!-- .cd-hero-slider -->
 
         <footer class="tm-footer">
-
-            <p class="tm-copyright-text">Copyright &copy; <span class="tm-copyright-year">current year</span> Your
-                Company
-
-                | Design: <a href="www.templatemo.com" target="_parent">Template Mo</a></p>
-
+            <p class="tm-copyright-text">Copyright &copy; <span class="tm-copyright-year">current year</span> Casa Leia</p>
         </footer>
 
     </div> <!-- .cd-hero -->
@@ -231,10 +226,10 @@ http://www.templatemo.com/tm-500-fluid-gallery
                         })
                         return `<div class="grid-item">
                             <figure class="effect-sadie">
-                                <img src="data:image/jpeg;base64,${rowData[1]}" alt="Image" class="img-fluid tm-img">
+                                <img src="data:image/jpeg;base64,${rowData[table.header.indexOf("vehicle_crop_jpeg")]}" alt="Image" class="img-fluid tm-img">
                                 <figcaption>
-                                    <h2 class="tm-figure-title">${rowData[0]}</h2>
-                                    <p class="tm-figure-description">Set true or false in HTML script tag for this page black and white.</p>
+                                    <h2 class="tm-figure-title">${rowData[table.header.indexOf("epoch_start")]}</h2>
+                                    <p class="tm-figure-description">${rowData[table.header.indexOf("best_plate_number")]}</p>
                                     <a href="img/tm-img-12.jpg">View more</a>
                                 </figcaption>           
                             </figure>
