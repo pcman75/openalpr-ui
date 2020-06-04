@@ -129,7 +129,8 @@ http://www.templatemo.com/tm-500-fluid-gallery
         </ul> <!-- .cd-hero-slider -->
 
         <footer class="tm-footer">
-            <p class="tm-copyright-text">Copyright &copy; <span class="tm-copyright-year">current year</span> Casa Leia</p>
+            <p class="tm-copyright-text">Copyright &copy; <span class="tm-copyright-year">current year</span> Casa Leia
+            </p>
         </footer>
 
     </div> <!-- .cd-hero -->
@@ -156,6 +157,8 @@ http://www.templatemo.com/tm-500-fluid-gallery
 
         function adjustHeightOfPage(pageNo) {
 
+            console.log(`Start adjusting page ${pageNo} height`);
+
             var pageContentHeight = 0;
 
             var pageType = $('div[data-page-no="' + pageNo + '"]').data("page-type");
@@ -181,6 +184,7 @@ http://www.templatemo.com/tm-500-fluid-gallery
                 $('.cd-hero-slider').removeClass('small-screen');
                 $('.cd-hero-slider li:nth-of-type(' + pageNo + ')').css("min-height", "100%");
             }
+            console.log(`End adjusting page ${pageNo} height`);
         }
 
         if (location.hostname === "localhost" || location.hostname === "127.0.0.1") {
@@ -197,20 +201,21 @@ http://www.templatemo.com/tm-500-fluid-gallery
         */
         $(window).load(function () {
 
-            async function getCarsGalery(startDateTime, endDateTime){
+            console.log("Everything is loaded including images.");
+            async function getCarsGalery(startDateTime, endDateTime) {
 
                 let find = {};
-                if(startDateTime){
-                    if(find.epoch_start)
+                if (startDateTime) {
+                    if (find.epoch_start)
                         find.epoch_start.$gt = startDateTime.getTime();
                     else
-                        find.epoch_start = {$gt: startDateTime.getTime()};
+                        find.epoch_start = { $gt: startDateTime.getTime() };
                 }
-                if(endDateTime){
-                    if(find.epoch_start)
+                if (endDateTime) {
+                    if (find.epoch_start)
                         find.epoch_start.$lt = endDateTime.getTime();
                     else
-                        find.epoch_start = {$lt: endDateTime.getTime()};
+                        find.epoch_start = { $lt: endDateTime.getTime() };
                 }
                 //find = { epoch_start: { $gt: startDateTime.getTime(), $lt: endDateTime.getTime() } }
                 return getplates({ find: find }).then((result) => {
@@ -238,8 +243,8 @@ http://www.templatemo.com/tm-500-fluid-gallery
                     return displaydata;
                 });
             }
-        
-            
+
+
 
             let today = new Date();
             today.setHours(0, 0, 0, 0); //begining of the day
@@ -249,33 +254,43 @@ http://www.templatemo.com/tm-500-fluid-gallery
 
             //today
             getCarsGalery(today).then((data) => {
-                $("#cars-today").html(data);
+                $("#cars-today").append(data);
+                console.log("added today cars");
+                // wait 1 second
+                setTimeout(function () {
+                    adjustHeightOfPage(1);
+                }, 1000);
+                adjustHeightOfPage(1); // Adjust page height
+                /* Gallery One pop up
+           -----------------------------------------*/
+                $('.gallery-one').magnificPopup({
+                    delegate: 'a', // child items selector, by clicking on it popup will open
+                    type: 'image',
+                    gallery: { enabled: true }
+                });
             });
-            
+
             //yesterday
             getCarsGalery(yesterday, today).then((data) => {
                 $("#cars-yesterday").html(data);
-            });
+                console.log("added yesterday cars");
 
-            adjustHeightOfPage(1); // Adjust page height
-            adjustHeightOfPage(2); // Adjust page height
-
-
-            /* Gallery One pop up
+                /* Gallery Two pop up
             -----------------------------------------*/
-            $('.gallery-one').magnificPopup({
-                delegate: 'a', // child items selector, by clicking on it popup will open
-                type: 'image',
-                gallery: { enabled: true }
+                $('.gallery-two').magnificPopup({
+                    delegate: 'a',
+                    type: 'image',
+                    gallery: { enabled: true }
+                });
+
             });
 
-            /* Gallery Two pop up
-            -----------------------------------------*/
-            $('.gallery-two').magnificPopup({
-                delegate: 'a',
-                type: 'image',
-                gallery: { enabled: true }
-            });
+
+
+
+            console.log("magnificPopup");
+
+
 
             /* Gallery Three pop up
             -----------------------------------------*/
@@ -315,6 +330,7 @@ http://www.templatemo.com/tm-500-fluid-gallery
 
         // DOM is ready
         $(function () {
+            console.log("DOM is ready")
         });
 
     </script>
