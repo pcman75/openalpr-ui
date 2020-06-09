@@ -25,7 +25,7 @@ exports.getplates = functions.https.onCall(async (input, context) => {
         throw new functions.https.HttpsError('permission-denied', `Unauthorized user: ${context.auth.token.email}`);
     }
 
-    let table = {};
+    let table = {header:[], data: []};
 
     let client = await MongoClient.connect(config.mongodb_url);
     let db = client.db(config.dbName);

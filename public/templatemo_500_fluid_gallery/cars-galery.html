@@ -235,7 +235,7 @@ http://www.templatemo.com/tm-500-fluid-gallery
                                 <figcaption>
                                     <h2 class="tm-figure-title">${rowData[table.header.indexOf("epoch_start")]}</h2>
                                     <p class="tm-figure-description">${rowData[table.header.indexOf("best_plate_number")]}</p>
-                                    <a href="https://storage.cloud.google.com/openalpr-files/${rowData[table.header.indexOf('best_picture')]}">View more</a>
+                                    <a href="https://storage.cloud.google.com/openalpr-files/${rowData[table.header.indexOf('best_uuid')]}.mp4">View more</a>
                                 </figcaption>           
                             </figure>
                         </div>`;
@@ -261,13 +261,13 @@ http://www.templatemo.com/tm-500-fluid-gallery
                     adjustHeightOfPage(1);
                 }, 1000);
                 adjustHeightOfPage(1); // Adjust page height
-                /* Gallery One pop up
-           -----------------------------------------*/
-                $('.gallery-one').magnificPopup({
-                    delegate: 'a', // child items selector, by clicking on it popup will open
-                    type: 'image',
-                    gallery: { enabled: true }
-                });
+                // /* Gallery One pop up
+                // -----------------------------------------*/
+                // $('.gallery-one').magnificPopup({
+                //     delegate: 'a', // child items selector, by clicking on it popup will open
+                //     type: 'image',
+                //     gallery: { enabled: true }
+                // });
             });
 
             //yesterday
@@ -275,13 +275,13 @@ http://www.templatemo.com/tm-500-fluid-gallery
                 $("#cars-yesterday").html(data);
                 console.log("added yesterday cars");
 
-                /* Gallery Two pop up
-            -----------------------------------------*/
-                $('.gallery-two').magnificPopup({
-                    delegate: 'a',
-                    type: 'image',
-                    gallery: { enabled: true }
-                });
+            //     /* Gallery Two pop up
+            // -----------------------------------------*/
+            //     $('.gallery-two').magnificPopup({
+            //         delegate: 'a',
+            //         type: 'image',
+            //         gallery: { enabled: true }
+            //     });
 
             });
 
